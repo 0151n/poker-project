@@ -22,9 +22,25 @@ import javax.swing.border.TitledBorder;
 
 
 
-
-
 public class Gui extends JFrame{
+
+			//define image array
+			ImageIcon images[];
+			
+			//define jlabels for images
+			JLabel player1;
+			JLabel player2;
+			JLabel player3;
+			JLabel player4;
+			JLabel player5;
+			JLabel ai;
+			JLabel ai1;
+			JLabel ai2;
+			JLabel ai3;
+			JLabel ai4;
+			//image for back of card
+			ImageIcon blank = new ImageIcon("images/54.png");
+			
 	public Gui() {
 		
 		super("Poker Game");
@@ -38,29 +54,21 @@ public class Gui extends JFrame{
 		final String sbank = String.format("%d",PokerGame.playerbank);
 		final String aisbank = String.format("%d",PokerGame.aibank);
 		
+		//array of images for cards
+		final ImageIcon images[] = new ImageIcon[52];
+		//load images into array
+		load_images(images);
+		
 		//setVisible(true);
 		 LineBorder border = new LineBorder ( Color.black, 3, true );
 		//Initialization of gui items
 		 
-		 //images used for Player and computer
-		ImageIcon image1 = new ImageIcon(PokerGame.shand[0]);
-		ImageIcon image2 = new ImageIcon(PokerGame.shand[1]);
-		ImageIcon image3 = new ImageIcon(PokerGame.shand[2]);
-		ImageIcon image4 = new ImageIcon(PokerGame.shand[3]);
-		ImageIcon image5 = new ImageIcon(PokerGame.shand[4]);
-		final ImageIcon image6 = new ImageIcon(PokerGame.shand[5]);
-		final ImageIcon image7 = new ImageIcon(PokerGame.shand[6]);
-		final ImageIcon image8 = new ImageIcon(PokerGame.shand[7]);
-		final ImageIcon image9 = new ImageIcon(PokerGame.shand[8]);
-		final ImageIcon image10 = new ImageIcon(PokerGame.shand[9]);
-			ImageIcon blank = new ImageIcon("images/54.png");
-		
-		
-		JLabel player1 = new JLabel("", image1, JLabel.CENTER);
-		JLabel player2 = new JLabel("", image2, JLabel.CENTER);
-		JLabel player3 = new JLabel("", image3, JLabel.CENTER);
-		JLabel player4 = new JLabel("", image4, JLabel.CENTER);
-		JLabel player5 = new JLabel("", image5, JLabel.CENTER);
+		 //images used for Player and computer, initialisation		
+		final JLabel player1 = new JLabel("", images[PokerGame.hand[0]], JLabel.CENTER);
+		final JLabel player2 = new JLabel("", images[PokerGame.hand[1]], JLabel.CENTER);
+		final JLabel player3 = new JLabel("", images[PokerGame.hand[2]], JLabel.CENTER);
+		final JLabel player4 = new JLabel("", images[PokerGame.hand[3]], JLabel.CENTER);
+		final JLabel player5 = new JLabel("", images[PokerGame.hand[4]], JLabel.CENTER);
 		final JLabel ai = new JLabel("", blank, JLabel.CENTER);
 		final JLabel ai1 = new JLabel("", blank, JLabel.CENTER);
 		final JLabel ai2 = new JLabel("", blank, JLabel.CENTER);
@@ -85,6 +93,9 @@ public class Gui extends JFrame{
 		//fold button
 		JButton fold = new JButton("Fold");
 		fold.setToolTipText("Fold");
+		
+		JButton reset = new JButton("Reset");
+		reset.setToolTipText("Start a new game");
 		
 		//bet_panel pane
 		
@@ -185,6 +196,7 @@ public class Gui extends JFrame{
 		rank_panel.add(Rank);
 		rank_panel.add(rank_field);
 		rank_panel.add(fold);
+		rank_panel.add(reset);
 
 		//add panels to window
 		add(rank_panel,BorderLayout.NORTH);
@@ -253,11 +265,11 @@ public class Gui extends JFrame{
 		 call.addActionListener(new ActionListener(){
 	            public void actionPerformed(ActionEvent e)
 	            {
-	            	ai.setIcon(image6);
-	            	ai1.setIcon(image7);
-	            	ai2.setIcon(image8);
-	            	ai3.setIcon(image9);
-	            	ai4.setIcon(image10);
+	            	ai.setIcon(images[PokerGame.aihand[0]]);
+	            	ai1.setIcon(images[PokerGame.aihand[1]]);
+	            	ai2.setIcon(images[PokerGame.aihand[2]]);
+	            	ai3.setIcon(images[PokerGame.aihand[3]]);
+	            	ai4.setIcon(images[PokerGame.aihand[4]]);
 	            	PokerGame.outcome = PokerGame.compare_hands(PokerGame.playerRank,PokerGame.aiRank);
 	            	System.out.println(PokerGame.outcome);
 	            }
@@ -266,13 +278,56 @@ public class Gui extends JFrame{
 		 fold.addActionListener(new ActionListener(){
 	            public void actionPerformed(ActionEvent e)
 	            {
-	            	ai.setIcon(image6);
-	            	ai1.setIcon(image7);
-	            	ai2.setIcon(image8);
-	            	ai3.setIcon(image9);
-	            	ai4.setIcon(image10);
+	             	ai.setIcon(images[PokerGame.aihand[0]]);
+	            	ai1.setIcon(images[PokerGame.aihand[1]]);
+	            	ai2.setIcon(images[PokerGame.aihand[2]]);
+	            	ai3.setIcon(images[PokerGame.aihand[3]]);
+	            	ai4.setIcon(images[PokerGame.aihand[4]]);
 	            	JOptionPane.showMessageDialog(null, "Computer Wins By Default!");
 	            }
-	        });
+	        });  
+		 //action listener for reset button
+		reset.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e)
+            {
+            	PokerGame.game();
+            	//reset_images();
+            	ai.setIcon(blank);
+            	ai1.setIcon(blank);
+            	ai2.setIcon(blank);
+            	ai3.setIcon(blank);
+            	ai4.setIcon(blank);
+            	player1.setIcon(images[PokerGame.hand[0]]);
+            	player2.setIcon(images[PokerGame.hand[1]]);
+            	player3.setIcon(images[PokerGame.hand[2]]);
+            	player4.setIcon(images[PokerGame.hand[3]]);
+            	player5.setIcon(images[PokerGame.hand[4]]);
+            }
+        });  
+		
+	
 	}
+	public int load_images(ImageIcon images[]) {
+		String card = "images/*.png";
+		for(int i = 0;i < 52;i++){
+			card = String.format("images/%d.png",i);
+			images[i] = new ImageIcon(card);
+		}
+		return 0;
+	}
+	public void reset_images() {
+		//reset the ai cards to blank
+		ai1.setIcon(blank);
+    	ai.setIcon(blank);
+    	ai2.setIcon(blank);
+    	ai3.setIcon(blank);
+    	ai4.setIcon(blank);
+    	player1.setIcon(images[PokerGame.hand[0]]);
+    	player2.setIcon(images[PokerGame.hand[1]]);
+    	player3.setIcon(images[PokerGame.hand[2]]);
+    	player4.setIcon(images[PokerGame.hand[3]]);
+    	player5.setIcon(images[PokerGame.hand[4]]);
+	}
+	
+	
 }

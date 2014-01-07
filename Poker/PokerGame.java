@@ -6,10 +6,9 @@ import javax.swing.JOptionPane;
 
 public class PokerGame {
 	//variable initialization
-	
-	//string array used in displaying images
-	public static String[] shand = new String[10];
-	
+	//player hand
+	static int[] hand = new int[5];
+
 	//how much has been bet by players
 	static int playerbet = 0;
 	static int aibet = 0;
@@ -37,96 +36,18 @@ public class PokerGame {
 	//ai hand
 	public static int[] aihand = new int[5];
 
+	//main method
 	public static void main(String[] args) {
-	
-			
-			int[] cards = new int[deckSize];   
-			int[] suits = new int[deckSize];   
-			int[] values = new int[deckSize];       
-			//player hand
-			int[] hand = new int[5];
-			//ai hand
-
-			for(int i=0; i < deckSize; i++){
-				cards[i]=i;   
-				}   
-			
-			//populating hands with cards
-			populate_hand(hand);
-			populate_hand(aihand);
-			check_hand(aihand,hand);
 		
+		game();
 		
-		//calling sorting algorithm
-		sort(hand);
-		sort(aihand);
-		
-		playerRank = rank(hand,false);
-		aiRank =  rank(aihand,true);
-		
-		System.out.println(aiRank);
-		System.out.println(playerRank);
-		
-		for(int i = 0;i <= 4;i++){
-			shand[i] = String.format("images/%d.png",hand[i]);
-			System.out.println(shand[i]);
-		}
-		for(int i = 5;i <= 9;i++){
-			shand[i] = String.format("images/%d.png",aihand[i - 5]);
-			System.out.println(shand[i]);
-		}
-			
-		for(int n = 0;n < 5;n++){	
-			
-		
-			suits[n] = hand[n] / 13;     
-			values[n] = hand[n] % 13;     
-		
-			switch(values[n])         
-			{         
-			case 0:  System.out.print("Two of ");   
-			break;         
-			case 1:  System.out.print("Three of "); 
-			break;        
-			case 2:  System.out.print("Four of "); 
-			break;         
-			case 3:  System.out.print("Five of ");  
-			break;         
-			case 4:  System.out.print("Six of ");  
-			break;         
-			case 5:  System.out.print("Seven of "); 
-			break;         
-			case 6:  System.out.print("Eight of ");
-			break;        
-			case 7:  System.out.print("Nine of "); 
-			break;        
-			case 8:  System.out.print("Ten of ");   
-			break;       
-			case 9:  System.out.print("Jack of "); 
-			break;        
-			case 10: System.out.print("Queen of "); 
-			break; 
-			case 11: System.out.print("King of ");  
-			break;     
-			case 12: System.out.print("Ace of ");  
-			break;       
-			}  
-			switch(suits[n])       { 
-			case 0:  System.out.print("Hearts\n");   
-			break;         
-			case 1:  System.out.print("Clubs\n"); 
-			break;         
-			case 2:  System.out.print("Spades\n");   
-			break;         
-			case 3:  System.out.print("Diamonds\n");   
-			break;      
-				}   
-			}
-	Gui window = new Gui();
-	window.setVisible(true);
+		Gui window = new Gui();
+		window.setVisible(true);
 		
 	}
-//sorting algorithm
+
+	
+	//sorting algorithm
 public static void sort(int hand[]){
 		boolean swapped = true;
 		int tmp;
@@ -150,7 +71,6 @@ public static void sort(int hand[]){
 //ranking algorithm
 public static String rank(int hand[],boolean computer){
 	int usedindex = 0;
-	int usedindex_2 = 0;
 	boolean pair = false; 
 	boolean same = false;
 	boolean royal = false;
@@ -409,6 +329,81 @@ public static void subrank(boolean computer,int subranking) {
 		playersubrank = subranking;
 	}
 	
+}
+public static void game () {
+	
+	//populating hands with cards
+	populate_hand(hand);
+	populate_hand(aihand);
+	check_hand(aihand,hand);
+
+
+	//calling sorting algorithm
+	sort(hand);
+	sort(aihand);
+
+	//rank hands
+	playerRank = rank(hand,false);
+	aiRank =  rank(aihand,true);
+
+	/*print hands to console
+	remove comment to enable cheat mode.
+	System.out.println(aiRank);
+	System.out.println(playerRank);
+ */
+}
+
+public void print_hand() {
+	
+	int[] suits = new int[deckSize];   
+	int[] values = new int[deckSize];      
+	
+	for(int n = 0;n < 5;n++){	
+		
+		
+		suits[n] = hand[n] / 13;     
+		values[n] = hand[n] % 13;     
+	
+		switch(values[n])         
+		{         
+		case 0:  System.out.print("Two of ");   
+		break;         
+		case 1:  System.out.print("Three of "); 
+		break;        
+		case 2:  System.out.print("Four of "); 
+		break;         
+		case 3:  System.out.print("Five of ");  
+		break;         
+		case 4:  System.out.print("Six of ");  
+		break;         
+		case 5:  System.out.print("Seven of "); 
+		break;         
+		case 6:  System.out.print("Eight of ");
+		break;        
+		case 7:  System.out.print("Nine of "); 
+		break;        
+		case 8:  System.out.print("Ten of ");   
+		break;       
+		case 9:  System.out.print("Jack of "); 
+		break;        
+		case 10: System.out.print("Queen of "); 
+		break; 
+		case 11: System.out.print("King of ");  
+		break;     
+		case 12: System.out.print("Ace of ");  
+		break;       
+		}  
+		switch(suits[n])       { 
+		case 0:  System.out.print("Hearts\n");   
+		break;         
+		case 1:  System.out.print("Clubs\n"); 
+		break;         
+		case 2:  System.out.print("Spades\n");   
+		break;         
+		case 3:  System.out.print("Diamonds\n");   
+		break;      
+			}   
+		}
 }
 		
 }
