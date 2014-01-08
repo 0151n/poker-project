@@ -38,6 +38,7 @@ public class Gui extends JFrame{
 			JLabel ai2;
 			JLabel ai3;
 			JLabel ai4;
+			JTextField rank_field;
 			//image for back of card
 			ImageIcon blank = new ImageIcon("images/54.png");
 			
@@ -77,9 +78,11 @@ public class Gui extends JFrame{
 	
 		//rank textfield
 		JLabel Rank = new JLabel("Rank:", JLabel.CENTER);
-		JTextField rank_field = new JTextField(PokerGame.playerRank);
+		final JTextField rank_field = new JTextField(PokerGame.playerRank);
 		rank_field.setEditable(false);
 		rank_field.setToolTipText("Rank");
+		rank_field.setColumns(PokerGame.playerRank.length());
+		
 		
 		//label for computers bet textfield
 		JLabel aibetlabel = new JLabel("Computer's current bet:", JLabel.CENTER);
@@ -291,17 +294,25 @@ public class Gui extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
             	PokerGame.game();
-            	//reset_images();
+            	
+            	//reset computers hand to blank images
             	ai.setIcon(blank);
             	ai1.setIcon(blank);
             	ai2.setIcon(blank);
             	ai3.setIcon(blank);
             	ai4.setIcon(blank);
+            	
+            	//reset the players hand images
             	player1.setIcon(images[PokerGame.hand[0]]);
             	player2.setIcon(images[PokerGame.hand[1]]);
             	player3.setIcon(images[PokerGame.hand[2]]);
             	player4.setIcon(images[PokerGame.hand[3]]);
             	player5.setIcon(images[PokerGame.hand[4]]);
+            	
+            	//reset the rank field
+            	rank_field.setColumns(PokerGame.playerRank.length());
+            	rank_field.setText(PokerGame.playerRank);
+            	//rank_field.setColumns(PokerGame.playerRank.length());
             }
         });  
 		
@@ -315,19 +326,7 @@ public class Gui extends JFrame{
 		}
 		return 0;
 	}
-	public void reset_images() {
-		//reset the ai cards to blank
-		ai1.setIcon(blank);
-    	ai.setIcon(blank);
-    	ai2.setIcon(blank);
-    	ai3.setIcon(blank);
-    	ai4.setIcon(blank);
-    	player1.setIcon(images[PokerGame.hand[0]]);
-    	player2.setIcon(images[PokerGame.hand[1]]);
-    	player3.setIcon(images[PokerGame.hand[2]]);
-    	player4.setIcon(images[PokerGame.hand[3]]);
-    	player5.setIcon(images[PokerGame.hand[4]]);
-	}
+
 	
 	
 }

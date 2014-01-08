@@ -293,16 +293,20 @@ public static String compare_hands(String playerank,String airank) {
 		//draw, "Not today"
 		if(aisubrank > playersubrank) {
 			JOptionPane.showMessageDialog(null, "Computer Wins!");
+			return "Computer wins!";
 		}
 		if(playersubrank > aisubrank){
 			JOptionPane.showMessageDialog(null, "Player Wins!");
+			return "Player Wins";
 		}
 		if(airank == "High Card" && playerank == "High Card"){
 			if(secondaryHcard > aisecondaryHcard){
 				JOptionPane.showMessageDialog(null, "Player Wins!");
+				return "Player Wins";
 			}
 			else if(secondaryHcard < aisecondaryHcard){
 				JOptionPane.showMessageDialog(null, "Computer Wins!");
+				return "Computer Wins";
 			}
 		}
 	}
