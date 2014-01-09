@@ -53,13 +53,6 @@ public class Gui extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		setSize(900, 450);
-		
-		final String sbet = String.format("%d",PokerGame.playerbet);
-		final String aisbet = String.format("%d",PokerGame.aibet);
-	
-		final String sbank = String.format("%d",PokerGame.playerbank);
-		final String aisbank = String.format("%d",PokerGame.aibank);
-		
 		//array of images for cards
 		final ImageIcon images[] = new ImageIcon[52];
 		//load images into array
@@ -166,8 +159,20 @@ public class Gui extends JFrame{
 	            	ai2.setIcon(images[PokerGame.aihand[2]]);
 	            	ai3.setIcon(images[PokerGame.aihand[3]]);
 	            	ai4.setIcon(images[PokerGame.aihand[4]]);
+              
 	            	PokerGame.outcome = PokerGame.compare_hands(PokerGame.playerRank,PokerGame.aiRank);
-	            	System.out.println(PokerGame.outcome);
+
+                           if(PokerGame.outcome == "Computer Wins!"){
+                                   PokerGame.computer_score++;
+                                   computer_score.setText(Integer.toString(PokerGame.computer_score));
+                           }
+                                                      
+                           if(PokerGame.outcome == "Player Wins!"){
+                                   PokerGame.player_score++;
+                                   player_score.setText(Integer.toString(PokerGame.player_score));
+                           }                      
+                                          	            	
+                          System.out.println(PokerGame.outcome);
 	            }
 	        });  
 		 //action listener for fold button.

@@ -8,16 +8,14 @@ public class PokerGame {
 	//variable initialization
 	//player hand
 	static int[] hand = new int[5];
-
-	//how much has been bet by players
-	static int playerbet = 0;
-	static int aibet = 0;
-	
+ 
 	//rank of players
 	static String playerRank = "";
 	static String aiRank = "";
+
 	//size of the deck
 	public static int deckSize = 52;
+
 	//outcome of the game
 	public static String outcome = "";
 	
@@ -29,13 +27,13 @@ public class PokerGame {
 	public static int secondaryHcard = 0;
 	public static int aisecondaryHcard = 0;
 	
-	//starting money of ai and player in bank
-	public static int playerbank = 1000;
-	public static int aibank = 1000;
-	
 	//ai hand
 	public static int[] aihand = new int[5];
-
+ 
+              //player's scores
+              public static int player_score = 0;
+              public static int computer_score = 0;
+              
 	//main method
 	public static void main(String[] args) {
 		
@@ -293,33 +291,33 @@ public static String compare_hands(String playerank,String airank) {
 		//draw, "Not today"
 		if(aisubrank > playersubrank) {
 			JOptionPane.showMessageDialog(null, "Computer Wins!");
-			return "Computer wins!";
+			return "Computer Wins!";
 		}
 		if(playersubrank > aisubrank){
 			JOptionPane.showMessageDialog(null, "Player Wins!");
-			return "Player Wins";
+			return "Player Wins!";
 		}
 		if(airank == "High Card" && playerank == "High Card"){
 			if(secondaryHcard > aisecondaryHcard){
 				JOptionPane.showMessageDialog(null, "Player Wins!");
-				return "Player Wins";
+				return "Player Wins!";
 			}
 			else if(secondaryHcard < aisecondaryHcard){
 				JOptionPane.showMessageDialog(null, "Computer Wins!");
-				return "Computer Wins";
+				return "Computer Wins!";
 			}
 		}
 	}
 	else if(player > ai){
 		//player win
 		JOptionPane.showMessageDialog(null, "Player Wins!");
-		return "Player wins!";
+		return "Player Wins!";
 		
 	}
 	else if(player < ai){
 		//ai win
 		JOptionPane.showMessageDialog(null, "Computer Wins!");
-		return "Computer wins!";
+		return "Computer Wins!";
 	}
 	
 	return "meh";
