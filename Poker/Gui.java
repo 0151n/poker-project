@@ -79,7 +79,7 @@ public class Gui extends JFrame{
 		final JTextField rank_field = new JTextField(PokerGame.playerRank);
 		rank_field.setEditable(false);
 		rank_field.setToolTipText("Rank");
-		rank_field.setColumns(PokerGame.playerRank.length());
+		rank_field.setColumns(15);
   
                          //score textfields
                          final JTextField player_score = new JTextField("0");
@@ -104,9 +104,6 @@ public class Gui extends JFrame{
 		JButton fold = new JButton("Fold");
 		fold.setToolTipText("Fold");
 		
-		JButton reset = new JButton("Reset");
-		reset.setToolTipText("Start a new game");
-	
 		//panel which displays your hand.
 		JPanel card_panel = new JPanel(new FlowLayout());
 		card_panel.setBorder(BorderFactory.createTitledBorder(border, "Player Hand", TitledBorder.CENTER, TitledBorder.TOP,  new Font ( "Arial", Font.BOLD, 14 ),Color.black));
@@ -134,7 +131,7 @@ public class Gui extends JFrame{
 		rank_panel.add(Rank);
 		rank_panel.add(rank_field);
 		rank_panel.add(fold);
-		rank_panel.add(reset);
+		
 
                            JPanel score_panel = new JPanel(new FlowLayout());
                            score_panel.setBorder(BorderFactory.createTitledBorder(border, "Score", TitledBorder.CENTER, TitledBorder.TOP,  new Font ( "Arial", Font.BOLD, 14 ),Color.blue));
@@ -154,67 +151,78 @@ public class Gui extends JFrame{
 		 call.addActionListener(new ActionListener(){
 	            public void actionPerformed(ActionEvent e)
 	            {
-	            	ai.setIcon(images[PokerGame.aihand[0]]);
-	            	ai1.setIcon(images[PokerGame.aihand[1]]);
-	            	ai2.setIcon(images[PokerGame.aihand[2]]);
-	            	ai3.setIcon(images[PokerGame.aihand[3]]);
-	            	ai4.setIcon(images[PokerGame.aihand[4]]);
-              
-	            	PokerGame.outcome = PokerGame.compare_hands(PokerGame.playerRank,PokerGame.aiRank);
-
-                           if(PokerGame.outcome == "Computer Wins!"){
-                                   PokerGame.computer_score++;
-                                   computer_score.setText(Integer.toString(PokerGame.computer_score));
-                           }
-                                                      
-                           if(PokerGame.outcome == "Player Wins!"){
-                                   PokerGame.player_score++;
-                                   player_score.setText(Integer.toString(PokerGame.player_score));
-                           }                      
-                                          	            	
-                          System.out.println(PokerGame.outcome);
+	                    	ai.setIcon(images[PokerGame.aihand[0]]);
+        	                    	ai1.setIcon(images[PokerGame.aihand[1]]);
+                	            	ai2.setIcon(images[PokerGame.aihand[2]]);
+                	            	ai3.setIcon(images[PokerGame.aihand[3]]);
+                	            	ai4.setIcon(images[PokerGame.aihand[4]]);
+                              
+                	            	PokerGame.outcome = PokerGame.compare_hands(PokerGame.playerRank,PokerGame.aiRank);
+                
+                                           if(PokerGame.outcome == "Computer Wins!"){
+                                                   PokerGame.computer_score++;
+                                                   computer_score.setText(Integer.toString(PokerGame.computer_score));
+                                           }
+                                                                      
+                                           if(PokerGame.outcome == "Player Wins!"){
+                                                   PokerGame.player_score++;
+                                                   player_score.setText(Integer.toString(PokerGame.player_score));
+                                           }                      
+                                                          	            	
+                                          System.out.println(PokerGame.outcome);
+                                                  	PokerGame.game();
+                                    	
+                            	//reset computers hand to blank images
+                            	ai.setIcon(blank);
+                            	ai1.setIcon(blank);
+                            	ai2.setIcon(blank);
+                            	ai3.setIcon(blank);
+                            	ai4.setIcon(blank);
+                            	
+                            	//reset the players hand images
+                            	player1.setIcon(images[PokerGame.hand[0]]);
+                            	player2.setIcon(images[PokerGame.hand[1]]);
+                            	player3.setIcon(images[PokerGame.hand[2]]);
+                            	player4.setIcon(images[PokerGame.hand[3]]);
+                            	player5.setIcon(images[PokerGame.hand[4]]);
+                            	
+                            	//reset the rank field
+                            	rank_field.setColumns(PokerGame.playerRank.length());
+                            	rank_field.setText(PokerGame.playerRank);
+                                  
 	            }
 	        });  
 		 //action listener for fold button.
 		 fold.addActionListener(new ActionListener(){
 	            public void actionPerformed(ActionEvent e)
 	            {
-	             	ai.setIcon(images[PokerGame.aihand[0]]);
-	            	ai1.setIcon(images[PokerGame.aihand[1]]);
-	            	ai2.setIcon(images[PokerGame.aihand[2]]);
-	            	ai3.setIcon(images[PokerGame.aihand[3]]);
-	            	ai4.setIcon(images[PokerGame.aihand[4]]);
-	            	JOptionPane.showMessageDialog(null, "Computer Wins By Default!");
+	                     	ai.setIcon(images[PokerGame.aihand[0]]);
+        	                    	ai1.setIcon(images[PokerGame.aihand[1]]);
+                	            	ai2.setIcon(images[PokerGame.aihand[2]]);
+                	            	ai3.setIcon(images[PokerGame.aihand[3]]);
+                	            	ai4.setIcon(images[PokerGame.aihand[4]]);
+                	            	JOptionPane.showMessageDialog(null, "Computer Wins By Default!");
+                              
+                                       PokerGame.game();
+                            	
+                            	//reset computers hand to blank images
+                            	ai.setIcon(blank);
+                            	ai1.setIcon(blank);
+                            	ai2.setIcon(blank);
+                            	ai3.setIcon(blank);
+                            	ai4.setIcon(blank);
+                            	
+                            	//reset the players hand images
+                            	player1.setIcon(images[PokerGame.hand[0]]);
+                            	player2.setIcon(images[PokerGame.hand[1]]);
+                            	player3.setIcon(images[PokerGame.hand[2]]);
+                            	player4.setIcon(images[PokerGame.hand[3]]);
+                            	player5.setIcon(images[PokerGame.hand[4]]);
+                            	
+                            	//reset the rank field
+                            	rank_field.setText(PokerGame.playerRank);
 	            }
 	        });  
-		 //action listener for reset button
-		reset.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e)
-            {
-            	PokerGame.game();
-            	
-            	//reset computers hand to blank images
-            	ai.setIcon(blank);
-            	ai1.setIcon(blank);
-            	ai2.setIcon(blank);
-            	ai3.setIcon(blank);
-            	ai4.setIcon(blank);
-            	
-            	//reset the players hand images
-            	player1.setIcon(images[PokerGame.hand[0]]);
-            	player2.setIcon(images[PokerGame.hand[1]]);
-            	player3.setIcon(images[PokerGame.hand[2]]);
-            	player4.setIcon(images[PokerGame.hand[3]]);
-            	player5.setIcon(images[PokerGame.hand[4]]);
-            	
-            	//reset the rank field
-            	rank_field.setColumns(PokerGame.playerRank.length());
-            	rank_field.setText(PokerGame.playerRank);
-            	//rank_field.setColumns(PokerGame.playerRank.length());
-            }
-        });  
-		
-	
 	}
 	public int load_images(ImageIcon images[]) {
 		String card = "images/*.png";
