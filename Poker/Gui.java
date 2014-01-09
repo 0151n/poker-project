@@ -41,7 +41,12 @@ public class Gui extends JFrame{
 			JTextField rank_field;
 			//image for back of card
 			ImageIcon blank = new ImageIcon("images/54.png");
-			
+                        
+                        //score elements
+                        JLabel player = new JLabel("Player");
+                        JLabel computer = new JLabel("Computer");
+                        JTextField player_score;
+                        JTextField computer_score;
 	public Gui() {
 		
 		super("Poker Game");
@@ -82,6 +87,15 @@ public class Gui extends JFrame{
 		rank_field.setEditable(false);
 		rank_field.setToolTipText("Rank");
 		rank_field.setColumns(PokerGame.playerRank.length());
+  
+                         //score textfields
+                         final JTextField player_score = new JTextField("0");
+                         player_score.setEditable(false);
+                         player_score.setToolTipText("player score");
+                         
+                         final JTextField computer_score = new JTextField("0");
+                         computer_score.setEditable(false);
+                         computer_score.setToolTipText("computer score");
 		
 		
 		//label for computers bet textfield
@@ -99,79 +113,7 @@ public class Gui extends JFrame{
 		
 		JButton reset = new JButton("Reset");
 		reset.setToolTipText("Start a new game");
-		
-		//bet_panel pane
-		
-		//raise by 10 button
-		JButton raise_10 = new JButton("+ 10");
-		raise_10.setToolTipText("Raise bet by 10");
-		
-		//lower by 10 button
-		JButton lower_10 = new JButton("- 10");
-		lower_10.setToolTipText("Lower bet by 10");
 	
-		//raise by 1 button
-		JButton raise_1 = new JButton("+ 1");
-		raise_1.setToolTipText("Raise bet by 1");
-		
-		//lower by 1 button
-		JButton lower_1 = new JButton("- 1");
-		lower_1.setToolTipText("Lower bet by 1");
-	
-		//raise by 100 button
-		JButton raise_100 = new JButton("+ 100");
-		raise_100.setToolTipText("Raise bet by 100");
-		
-		//lower by 100 button
-		JButton lower_100 = new JButton("- 100");
-		lower_100.setToolTipText("Lower bet by 100");
-
-		//textfield for players bet
-		final JTextField bet = new JTextField(sbet);
-		bet.setEditable(false);
-		bet.setToolTipText("current bet");
-		
-		//textfield for computers bet
-		final JTextField aibet = new JTextField(aisbet);
-		aibet.setEditable(false);
-		aibet.setToolTipText("computer's current bet");
-	
-		//textfield for computers bank total
-		final JTextField aitotal= new JTextField(sbank);
-		aibet.setEditable(false);
-		aibet.setToolTipText("computer's current bank total");
-		
-	    //textfield for players bank total
-		final JTextField playertotal = new JTextField(aisbank);
-		aibet.setEditable(false);
-		aibet.setToolTipText("computer's current bank total");
-		
-	
-		/*panel to show computer's hand
-		 * unused
-		JPanel bet_panel = new JPanel(new GridLayout(4,1,5,5));
-		bet_panel.setBorder(BorderFactory.createTitledBorder(border, "Bet", TitledBorder.CENTER, TitledBorder.TOP,  new Font ( "Arial", Font.BOLD, 14 ),Color.black));
-	
-		JPanel playerbet_panel = new JPanel(new GridLayout(1,7,5,5));		
-		playerbet_panel.add(lower_1);
-		playerbet_panel.add(lower_10);
-		playerbet_panel.add(lower_100);
-		playerbet_panel.add(bet);
-		playerbet_panel.add(raise_100);
-		playerbet_panel.add(raise_10);
-		playerbet_panel.add(raise_1);
-		
-		
-		JPanel aibet_panel = new JPanel(new GridLayout(1,2,5,5));
-		aibet_panel.add(aibetlabel);
-		aibet_panel.add(aibet);
-		
-		//panel to show player's hand
-		bet_panel.add(aibet_panel);
-		bet_panel.add(new JSeparator(SwingConstants.HORIZONTAL));
-		bet_panel.add(playerbetlabel);
-		bet_panel.add(playerbet_panel);
-		*/
 		//panel which displays your hand.
 		JPanel card_panel = new JPanel(new FlowLayout());
 		card_panel.setBorder(BorderFactory.createTitledBorder(border, "Player Hand", TitledBorder.CENTER, TitledBorder.TOP,  new Font ( "Arial", Font.BOLD, 14 ),Color.black));
@@ -201,69 +143,20 @@ public class Gui extends JFrame{
 		rank_panel.add(fold);
 		rank_panel.add(reset);
 
-		//add panels to window
+                           JPanel score_panel = new JPanel(new FlowLayout());
+                           score_panel.setBorder(BorderFactory.createTitledBorder(border, "Score", TitledBorder.CENTER, TitledBorder.TOP,  new Font ( "Arial", Font.BOLD, 14 ),Color.blue));
+		score_panel.add(computer);
+                           score_panel.add(computer_score);
+                           score_panel.add(player);
+                           score_panel.add(player_score);
+
+
+                           //add panels to window
 		add(rank_panel,BorderLayout.NORTH);
 		add(card_panel,BorderLayout.WEST);
 		add(ai_panel,BorderLayout.EAST);
-		//removed betting functionality for now.
-		//add(bet_panel, BorderLayout.SOUTH);
+                          add(score_panel,BorderLayout.SOUTH);
 		
-	
-		/* action listeners for betting buttons not needed at the moment.
-		 raise_1.addActionListener(new ActionListener(){
-	            public void actionPerformed(ActionEvent e)
-	            {
-	            	PokerGame.playerbet += 1;
-	            	bet.setText(String.format("%d",PokerGame.playerbet));
-	            }
-	        });  
-		 
-		 raise_10.addActionListener(new ActionListener(){
-	            public void actionPerformed(ActionEvent e)
-	            {
-	            	PokerGame.playerbet += 10;
-	            	bet.setText(String.format("%d",PokerGame.playerbet));
-	            }
-	        });    
-		 
-		 raise_100.addActionListener(new ActionListener(){
-	            public void actionPerformed(ActionEvent e)
-	            {
-	            	PokerGame.playerbet += 100;
-	            	bet.setText(String.format("%d",PokerGame.playerbet));
-	            }
-	        }); 
-		 
-		 lower_100.addActionListener(new ActionListener(){
-	            public void actionPerformed(ActionEvent e)
-	            {
-	            	if(PokerGame.playerbet > 100){
-	            		PokerGame.playerbet -= 100;
-	            		bet.setText(String.format("%d",PokerGame.playerbet));
-	            	}
-	            }
-	        });   
-		 
-		 lower_10.addActionListener(new ActionListener(){
-	            public void actionPerformed(ActionEvent e)
-	            {
-	            	if(PokerGame.playerbet > 10){
-	            		PokerGame.playerbet -= 10;
-	            		bet.setText(String.format("%d",PokerGame.playerbet));
-	            	}
-	            }
-	        });   
-		 
-		 lower_1.addActionListener(new ActionListener(){
-	            public void actionPerformed(ActionEvent e)
-	            {
-	            	if(PokerGame.playerbet > 0){
-	            		PokerGame.playerbet -= 1;
-	            		bet.setText(String.format("%d",PokerGame.playerbet));
-	            	}
-	            }
-	        }); 
-		 */
 		 //action listener for call button
 		 call.addActionListener(new ActionListener(){
 	            public void actionPerformed(ActionEvent e)
