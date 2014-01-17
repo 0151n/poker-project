@@ -8,7 +8,11 @@ public class PokerGame {
 	//variable initialization
 	//player hand
 	static int[] hand = new int[5];
- 
+   
+        //variables for rounds
+        static int round_limit = 5;
+     
+   
 	//rank of players
 	static String playerRank = "";
 	static String aiRank = "";
@@ -27,6 +31,7 @@ public class PokerGame {
 	public static int secondaryHcard = 0;
 	public static int aisecondaryHcard = 0;
 	
+	public static boolean gameover = false;
 	//ai hand
 	public static int[] aihand = new int[5];
  

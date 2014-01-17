@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.JToolBar;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -80,17 +80,16 @@ public class Gui extends JFrame{
 		rank_field.setEditable(false);
 		rank_field.setToolTipText("Rank");
 		rank_field.setColumns(15);
-  
-                         //score textfields
-                         final JTextField player_score = new JTextField("0");
-                         player_score.setEditable(false);
-                         player_score.setToolTipText("player score");
-                         
-                         final JTextField computer_score = new JTextField("0");
-                         computer_score.setEditable(false);
-                         computer_score.setToolTipText("computer score");
-		
-		
+	  
+         //score textfields
+	     final JTextField player_score = new JTextField("0");
+	     player_score.setEditable(false);
+	     player_score.setToolTipText("player score");
+	     
+	     final JTextField computer_score = new JTextField("0");
+	     computer_score.setEditable(false);
+	     computer_score.setToolTipText("computer score");
+		    
 		//label for computers bet textfield
 		JLabel aibetlabel = new JLabel("Computer's current bet:", JLabel.CENTER);
 		JLabel playerbetlabel = new JLabel("Player's current bet:", JLabel.CENTER);
@@ -132,7 +131,7 @@ public class Gui extends JFrame{
 		rank_panel.add(rank_field);
 		rank_panel.add(fold);
 		
-
+	
                            JPanel score_panel = new JPanel(new FlowLayout());
                            score_panel.setBorder(BorderFactory.createTitledBorder(border, "Score", TitledBorder.CENTER, TitledBorder.TOP,  new Font ( "Arial", Font.BOLD, 14 ),Color.blue));
 		score_panel.add(computer);
@@ -141,7 +140,9 @@ public class Gui extends JFrame{
                            score_panel.add(player_score);
 
 
-                           //add panels to window
+                           
+                           
+        //add panels to window
 		add(rank_panel,BorderLayout.NORTH);
 		add(card_panel,BorderLayout.WEST);
 		add(ai_panel,BorderLayout.EAST);
@@ -151,7 +152,8 @@ public class Gui extends JFrame{
 		 call.addActionListener(new ActionListener(){
 	            public void actionPerformed(ActionEvent e)
 	            {
-	                    	ai.setIcon(images[PokerGame.aihand[0]]);
+					
+	            					ai.setIcon(images[PokerGame.aihand[0]]);
         	                    	ai1.setIcon(images[PokerGame.aihand[1]]);
                 	            	ai2.setIcon(images[PokerGame.aihand[2]]);
                 	            	ai3.setIcon(images[PokerGame.aihand[3]]);
@@ -168,10 +170,23 @@ public class Gui extends JFrame{
                                                    PokerGame.player_score++;
                                                    player_score.setText(Integer.toString(PokerGame.player_score));
                                            }                      
-                                                          	            	
+                                             
+                                        	if(PokerGame.player_score == PokerGame.round_limit) {
+                        						JOptionPane.showMessageDialog(null, "You Win The Game!");
+                        						PokerGame.gameover = true;
+                        						 System.exit(0);
+                        						 
+                        					}
+                        					if(PokerGame.computer_score == PokerGame.round_limit) {
+                        						JOptionPane.showMessageDialog(null, "Computer Wins The Game!");
+                        						PokerGame.gameover = true;
+                        						System.exit(0);
+
+                        					}
                                           System.out.println(PokerGame.outcome);
                                                   	PokerGame.game();
-                                    	
+                                	
+                            	            	
                             	//reset computers hand to blank images
                             	ai.setIcon(blank);
                             	ai1.setIcon(blank);
@@ -189,14 +204,27 @@ public class Gui extends JFrame{
                             	//reset the rank field
                             	rank_field.setColumns(PokerGame.playerRank.length());
                             	rank_field.setText(PokerGame.playerRank);
-                                  
+                    
+                            
+                        		 
+                        		
+                        		 
 	            }
 	        });  
 		 //action listener for fold button.
 		 fold.addActionListener(new ActionListener(){
 	            public void actionPerformed(ActionEvent e)
 	            {
-	                     	ai.setIcon(images[PokerGame.aihand[0]]);
+	            	
+						         
+        		 
+	            					PokerGame.computer_score++;
+	            					if(PokerGame.computer_score == PokerGame.round_limit) {
+	            						JOptionPane.showMessageDialog(null, "Computer Wins The Game!");
+	            						computer_score.setText(Integer.toString(PokerGame.computer_score));
+	            						PokerGame.gameover = true;
+	            					}
+		                            ai.setIcon(images[PokerGame.aihand[0]]);
         	                    	ai1.setIcon(images[PokerGame.aihand[1]]);
                 	            	ai2.setIcon(images[PokerGame.aihand[2]]);
                 	            	ai3.setIcon(images[PokerGame.aihand[3]]);
@@ -220,9 +248,12 @@ public class Gui extends JFrame{
                             	player5.setIcon(images[PokerGame.hand[4]]);
                             	
                             	//reset the rank field
-                            	rank_field.setText(PokerGame.playerRank);
+                            	rank_field.setText(PokerGame.playerRank);                        		 
 	            }
-	        });  
+	            
+	        }); 
+		 
+		
 	}
 	public int load_images(ImageIcon images[]) {
 		String card = "images/*.png";
